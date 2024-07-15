@@ -3,7 +3,6 @@ package ForoHub.challenge.controller;
 import ForoHub.challenge.domain.topico.DatosCrearTopico;
 import ForoHub.challenge.domain.topico.Topico;
 import ForoHub.challenge.domain.topico.TopicoRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +17,8 @@ public class TopicoController {
     private TopicoRepository topicoRepository;
 
     @PostMapping
-    public void crearTopico(@RequestBody @Valid DatosCrearTopico datosCrearTopico){
-        topicoRepository.save(new Topico(datosCrearTopico));
+    public void crearTopico(@RequestBody DatosCrearTopico datosCrearTopico){
+            topicoRepository.save(new Topico(datosCrearTopico));
     }
 
 }
