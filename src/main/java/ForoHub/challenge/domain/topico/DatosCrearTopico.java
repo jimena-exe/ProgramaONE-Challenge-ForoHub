@@ -4,7 +4,7 @@ package ForoHub.challenge.domain.topico;
 public record DatosCrearTopico(String idUsuario,
                                String titulo,
                                String mensaje,
-                               String status,
+                               Estado status,
                                String autor,
                                String curso) {
 }

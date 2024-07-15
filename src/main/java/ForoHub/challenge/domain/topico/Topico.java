@@ -29,4 +29,11 @@ public class Topico {
     private String autor;
     private String curso;
 
+    public Topico(DatosCrearTopico datosCrearTopico) {
+        this.titulo = datosCrearTopico.titulo();
+        this.mensaje = datosCrearTopico.mensaje();
+        this.status = datosCrearTopico.status();
+        this.autor = datosCrearTopico.autor();
+        this.curso = datosCrearTopico.curso();
+    }
 }
