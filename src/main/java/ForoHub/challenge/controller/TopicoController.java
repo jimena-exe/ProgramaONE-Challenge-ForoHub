@@ -1,10 +1,8 @@
 package ForoHub.challenge.controller;
 
-import ForoHub.challenge.domain.topico.DatosCrearTopico;
-import ForoHub.challenge.domain.topico.DatosListadoTopico;
-import ForoHub.challenge.domain.topico.Topico;
-import ForoHub.challenge.domain.topico.TopicoRepository;
+import ForoHub.challenge.domain.topico.*;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,9 +39,29 @@ public class TopicoController {
         Topico topico = topicoRepository.getReferenceById(id);
         var datosTopico = new DatosListadoTopico(
                 topico.getId(),topico.getTitulo(), topico.getMensaje(),
-                topico.getStatus(), topico.getAutor(), topico.getCurso().toString());
+                topico.getStatus(), topico.getAutor(), topico.getCurso());
         return ResponseEntity.ok(datosTopico);
+    }// status.toString()
+
+    //Actualizar un topico
+    @PutMapping("/{id}")
+    @Transactional
+
+        //Actualiza enviando el id en el json
+    public ResponseEntity actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico, @PathVariable Long id){
+        Topico topico = topicoRepository.getReferenceById(id); //busca el tópico
+        if (topico != null) {
+            System.out.println("El topico está presente en la bd");
+            topico.actualizarDatosTopico(datosActualizarTopico); //mando los datos a actualizar
         }
+        return ResponseEntity.ok(new DatosRespuestaTopico(topico.getId(),
+                topico.getTitulo(), topico.getMensaje(), topico.getStatus(),
+                topico.getAutor(), topico.getCurso()));
+    }
+
+
+    //Eliminar un tópico
+    public void eliminarTopico(){}
 
 
 }
