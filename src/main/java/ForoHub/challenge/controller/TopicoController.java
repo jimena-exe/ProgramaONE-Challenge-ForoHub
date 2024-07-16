@@ -44,15 +44,15 @@ public class TopicoController {
     }// status.toString()
 
     //Actualizar un topico
+    //Poner un corrector de errores para el campo ID "El id no debe estar vacío".
     @PutMapping("/{id}")
     @Transactional
-
-        //Actualiza enviando el id en el json
     public ResponseEntity actualizarTopico(@RequestBody @Valid DatosActualizarTopico datosActualizarTopico, @PathVariable Long id){
         Topico topico = topicoRepository.getReferenceById(id); //busca el tópico
-        if (topico != null) {
+        if (id.describeConstable().isPresent()) {
             System.out.println("El topico está presente en la bd");
             topico.actualizarDatosTopico(datosActualizarTopico); //mando los datos a actualizar
+            System.out.println("Tópico actualizado");
         }
         return ResponseEntity.ok(new DatosRespuestaTopico(topico.getId(),
                 topico.getTitulo(), topico.getMensaje(), topico.getStatus(),
@@ -61,7 +61,15 @@ public class TopicoController {
 
 
     //Eliminar un tópico
-    public void eliminarTopico(){}
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void eliminarTopico(@PathVariable Long id){
+        Topico topico = topicoRepository.getReferenceById(id);
+        topicoRepository.delete(topico);
+//        if (id.describeConstable().isPresent()) {
+//
+//        }
+    }
 
 
 }
