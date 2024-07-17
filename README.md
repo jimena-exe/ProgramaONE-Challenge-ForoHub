@@ -13,4 +13,6 @@ Qué se ha hecho hasta ahora:
 - Pruebas básicas en Insomina, guarda los datos del payload correctamente.
   
 
+--Creación del usuario y del token.
+--Mejorar Readme
 
