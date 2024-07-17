@@ -1,6 +1,7 @@
 package ForoHub.challenge.controller;
 
 import ForoHub.challenge.domain.usuario.DatosAutenticacionUser;
+import ForoHub.challenge.domain.usuario.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,16 @@ public class AutenticacionController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-//    @Autowired
-//    private TokenService tokenService;
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping
     public ResponseEntity autenticarUsuario(@RequestBody @Valid DatosAutenticacionUser datosAutenticacionUser){
-        Authentication token = new UsernamePasswordAuthenticationToken(datosAutenticacionUser.nombreUsuario(),
+        Authentication authToken = new UsernamePasswordAuthenticationToken(datosAutenticacionUser.nombreUsuario(),
                 datosAutenticacionUser.clave());
-        authenticationManager.authenticate(token);
+        var usuarioAutenticado = authenticationManager.authenticate(authToken);
+        var JWTtoken = tokenService.generarToken((Usuario) usuarioAutenticado.getPrincipal());
+        authenticationManager.authenticate(authToken);
         return ResponseEntity.ok().build();
     }
 }
