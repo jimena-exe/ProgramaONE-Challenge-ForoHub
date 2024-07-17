@@ -1,4 +1,4 @@
-package ForoHub.challenge.infra;
+package ForoHub.challenge.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
